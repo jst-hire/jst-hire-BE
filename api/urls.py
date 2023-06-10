@@ -2,9 +2,9 @@
 #from django.conf.urls import url
 from django.urls import path
 from . import views
-from .registration import registration
+from .registration.registration import Registration
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('register', registration.Registration.as_view(), name="register"),
+    path('register', Registration.as_view(), name="register"),
 ]
