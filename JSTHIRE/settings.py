@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'api',
     'corsheaders',
     'rest_framework',
-    # 'jst-hire-BE',  # Replace with the name of your Django app
+    'JSTHIRE',  # Replace with the name of your Django app
 ]
 
 MIDDLEWARE = [

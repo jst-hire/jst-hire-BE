@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 def home(request):
     # return render(request,'index.html')
-    return HttpResponse("Hello")
+    return HttpResponse("registration folder")
