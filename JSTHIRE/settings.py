@@ -25,7 +25,7 @@ SECRET_KEY = 's4x6(_nux=8gsido%9n3gj70)jd+d+k_v0mnicb8+v4o3e53v%'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+APPEND_SLASH = False
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'JSTHIRE',  # Replace with the name of your Django app
+    'employee',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'JSTHIRE.urls'
@@ -129,6 +131,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',
+]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
