@@ -12,7 +12,7 @@ from api.registration import registration_queries as qry
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from employee.registration.registrationModels import UserRegistration
+from employee.models import UserRegistration
 from employee.registration.registrationSerializers import RegistrationSerializer
 from django.db import models
 

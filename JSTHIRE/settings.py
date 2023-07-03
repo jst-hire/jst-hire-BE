@@ -92,7 +92,7 @@ DATABASES = {
             'PORT': '3306',  # Usually '3306'
     }
 }
-
+AUTH_USER_MODEL = 'employee.UserRegistration'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
