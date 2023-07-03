@@ -12,9 +12,8 @@ from api.registration import registration_queries as qry
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from employee.models import UserRegistration
-
-from employee.serializers import RegistrationSerializer
+from employee.registration.registrationModels import UserRegistration
+from employee.registration.registrationSerializers import RegistrationSerializer
 from django.db import models
 
 
@@ -60,7 +59,7 @@ class Registration(generics.GenericAPIView):
             if UserRegistration.objects.filter(email=email).exists():
                 return JsonResponse({'error': 'Email already registered'})
             else:
-                registration = UserRegistration(username=username, email=email, phonenumber=phonenumber,password=password, rec_created_time=rec_cre_ts)
+                registration = UserRegistration.objects.create_user(username=username, email=email, phonenumber=phonenumber,password=password, rec_created_time=rec_cre_ts)
                 registration.save()
                 return JsonResponse({'message': 'Registration successful'})
             # return HttpResponse(json.dumps(registration))
