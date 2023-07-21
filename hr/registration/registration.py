@@ -12,22 +12,12 @@ from api.registration import registration_queries as qry
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from employee.models import UserRegistration
-from employee.registration.registrationSerializers import RegistrationSerializer
+from hr.models import hrRegistration
+from hr.registration.registrationSerializers import RegistrationSerializer
 from django.db import models
 
 
 class Registration(generics.GenericAPIView):
-    """
-        API Name                   : Register user
-        Description                : This api is used to user registration. Return json object as response to
-                                    display data in UI.
-        Created By                 : JST-HIRE
-        Created Date               : 03-06-2023
-        Last Modified By           :
-        Last Modified Date         :
-        Modification Description   :
-        """
     permission_classes = ()
 
     def __init__(self):
@@ -42,11 +32,14 @@ class Registration(generics.GenericAPIView):
             username = request.data['username']
             email = request.data['email']
             phonenumber = request.data['phonenumber']
+            company_name = request.data['company_name']
+            location = request.data['location']
             password = request.data['password']
             confirmpassword = request.data['confirmpassword']
+
             rec_cre_ts = datetime.now()
 
-            if not username or not email or not phonenumber or not password or not confirmpassword:
+            if not username or not email or not phonenumber or not company_name or not location or not password or not confirmpassword:
                 return JsonResponse({'error': 'All fields are required'})
 
             if password != confirmpassword:
@@ -56,14 +49,15 @@ class Registration(generics.GenericAPIView):
                 return JsonResponse({'error': 'Invalid email address. Please enter the email in @ format'})
 
                 # Check if the email is already registered
-            if UserRegistration.objects.filter(email=email).exists():
+            if hrRegistration.objects.filter(email=email).exists():
                 return JsonResponse({'error': 'Email already registered'})
             else:
-                registration = UserRegistration.objects.create_user(username=username, email=email,
-                                                                    phonenumber=phonenumber, password=password,
-                                                                    rec_created_time=rec_cre_ts)
+                registration = hrRegistration.objects.create_user(username=username, email=email,
+                                                                  phonenumber=phonenumber, company_name=company_name,
+                                                                  location=location, password=password,
+                                                                  rec_created_time=rec_cre_ts)
                 registration.save()
-                return JsonResponse({'message': 'Registration successful', 'status': 'Success', 'statusCode': '0'})
+                return JsonResponse({'message': 'HR Registration was successful'})
             # return HttpResponse(json.dumps(registration))
 
         except ValueError:

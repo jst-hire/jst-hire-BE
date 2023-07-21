@@ -8,26 +8,17 @@ from datetime import datetime
 from django.http import HttpResponse
 from JSTHIRE import settings
 from rest_framework import generics
+from administrator.models import AdminRegistration
 from api.registration import registration_queries as qry
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from employee.models import UserRegistration
-from employee.registration.registrationSerializers import RegistrationSerializer
+from administrator.registration.registrationSerializers import RegistrationSerializer
 from django.db import models
 
 
 class Registration(generics.GenericAPIView):
-    """
-        API Name                   : Register user
-        Description                : This api is used to user registration. Return json object as response to
-                                    display data in UI.
-        Created By                 : JST-HIRE
-        Created Date               : 03-06-2023
-        Last Modified By           :
-        Last Modified Date         :
-        Modification Description   :
-        """
+
     permission_classes = ()
 
     def __init__(self):
@@ -56,14 +47,12 @@ class Registration(generics.GenericAPIView):
                 return JsonResponse({'error': 'Invalid email address. Please enter the email in @ format'})
 
                 # Check if the email is already registered
-            if UserRegistration.objects.filter(email=email).exists():
+            if AdminRegistration.objects.filter(email=email).exists():
                 return JsonResponse({'error': 'Email already registered'})
             else:
-                registration = UserRegistration.objects.create_user(username=username, email=email,
-                                                                    phonenumber=phonenumber, password=password,
-                                                                    rec_created_time=rec_cre_ts)
+                registration = AdminRegistration.objects.create_user(username=username, email=email, phonenumber=phonenumber,password=password, rec_created_time=rec_cre_ts)
                 registration.save()
-                return JsonResponse({'message': 'Registration successful', 'status': 'Success', 'statusCode': '0'})
+                return JsonResponse({'message': 'Admin Registration successful'})
             # return HttpResponse(json.dumps(registration))
 
         except ValueError:

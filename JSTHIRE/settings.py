@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'JSTHIRE',  # Replace with the name of your Django app
     'employee',
+    'hr',
+    'administrator',
 ]
 
 MIDDLEWARE = [
